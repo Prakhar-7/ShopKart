@@ -26,6 +26,7 @@ const Product = () => {
           <img
             src={item.image}
             alt={item.title}
+            loading='lazy'
             className="w-full h-64 object-cover"
           />
           <div className="px-6 py-4">
