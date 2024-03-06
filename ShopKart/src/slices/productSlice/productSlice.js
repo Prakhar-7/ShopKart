@@ -27,6 +27,16 @@ export const CartitemSlice = createSlice({
       state.cartItems = [...state.cartItems, action.payload]
       console.log(state.cartItems)
     },
+    removeItem: (state, action) => {
+      const updatedCart=state.cartItems.filter((item)=>{
+        if(item.id!==action.payload){
+          return item
+        }
+      });
+      state.cartItems=updatedCart;
+
+
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -44,5 +54,5 @@ export const CartitemSlice = createSlice({
       })
   },
 })
-export const {addItem} = CartitemSlice.actions
+export const {addItem, removeItem} = CartitemSlice.actions
 export default CartitemSlice.reducer
