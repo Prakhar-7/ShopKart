@@ -5,6 +5,7 @@ const initialState = {
   status: 'idle', // Added loading state
   error: null, // Added error state
   cartItems: [],
+  idAdded:[],
 }
 
 export const getCartItems = createAsyncThunk('getCart', async () => {
@@ -25,7 +26,9 @@ export const CartitemSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       state.cartItems = [...state.cartItems, { ...action.payload, amount: 1 }]
-      console.log(state.cartItems)
+
+      state.idAdded=[...state.idAdded,action.payload.id]
+      console.log(state.idAdded)
     },
     removeItem: (state, action) => {
       const updatedCart = state.cartItems.filter((item) => {
@@ -33,7 +36,14 @@ export const CartitemSlice = createSlice({
           return item
         }
       })
-      state.cartItems = updatedCart
+      
+      state.cartItems = updatedCart;
+      const updated=state.idAdded.filter((productId)=>{
+        if(productId!==action.payload){
+          return productId
+        }
+      })
+      state.idAdded=updated;
     },
     increment: (state, action) => {
       const updatedCart = state.cartItems.map((item) =>item.id==action.payload.id?{...item,amount:item.amount+1}:item)
@@ -45,13 +55,14 @@ export const CartitemSlice = createSlice({
      
     },
   },
-  
+
   extraReducers: (builder) => {
     builder
       .addCase(getCartItems.pending, (state) => {
         state.status = 'loading'
       })
       .addCase(getCartItems.fulfilled, (state, action) => {
+     
         state.status = 'succeeded'
         state.items = action.payload
         state.error = null // Reset error state on success
