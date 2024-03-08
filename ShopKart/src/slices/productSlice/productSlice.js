@@ -5,8 +5,6 @@ const initialState = {
   status: 'idle', // Added loading state
   error: null, // Added error state
   cartItems: [],
-
-  
 }
 
 export const getCartItems = createAsyncThunk('getCart', async () => {
@@ -47,6 +45,7 @@ export const CartitemSlice = createSlice({
      
     },
   },
+  
   extraReducers: (builder) => {
     builder
       .addCase(getCartItems.pending, (state) => {

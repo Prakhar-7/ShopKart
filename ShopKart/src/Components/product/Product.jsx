@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCartItems } from '../../slices/productSlice/productSlice'
 import { addItem } from '../../slices/productSlice/productSlice'
-
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -21,26 +20,31 @@ const Product = () => {
     }
     return description
   }
- const handleDispatch=(item)=>{
-  dispatch(addItem(item))
-  toast.success('🦄 Item Added to cart!', {
-    position: 'top-right',
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-   style:{
-    transition: "Bounce",
-   }
-  })
- }
+
+  const handleDispatch = (item) => {
+    dispatch(addItem(item))
+    toast.success('🦄 Item Added to cart!', {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+      style: {
+        transition: 'Bounce',
+      },
+    })
+  }
+
   return (
-    <div className="grid grid-cols-3 gap-4 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 z-0 pt-[100px] gap-4 justify-center p-4">
       {items?.map((item, index) => (
-        <div key={index} className="max-w-sm rounded overflow-hidden shadow-lg">
+        <div
+          key={index}
+          className="max-w-md rounded overflow-hidden shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 bg-white"
+        >
           <img
             src={item.image}
             alt={item.title}
@@ -59,8 +63,8 @@ const Product = () => {
               <span className="text-sm">Category: {item.category}</span>
             </div>
             <button
-              onClick={() => handleDispatch(item) }
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+              onClick={() => handleDispatch(item)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
             >
               Add to Cart
             </button>
