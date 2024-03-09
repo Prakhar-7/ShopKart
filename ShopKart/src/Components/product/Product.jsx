@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom' 
 import Navbar from '../Navbar/Navbar'
 import {
   getCartItems,
@@ -56,8 +57,8 @@ const Product = () => {
     <div>
       {status == 'loading' ? (
         <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-black  z-50">
-        <div className="loader ease-linear rounded-full border-t-8 border-red-500 h-32 w-32 animate-spin text-red-500"></div>
-      </div>
+          <div className="loader ease-linear rounded-full border-t-8 border-red-500 h-32 w-32 animate-spin text-red-500"></div>
+        </div>
       ) : (
         <div>
           <Navbar />
@@ -67,12 +68,16 @@ const Product = () => {
                 key={index}
                 className="max-w-md rounded overflow-hidden shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 bg-white relative"
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="w-full h-64 object-cover"
-                />
+                <Link to={`/product/${item.id}`}>
+                  {' '}
+                  {/* Use Link to navigate to product details page */}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-64 object-cover"
+                  />
+                </Link>
                 <div className="px-6 py-4">
                   <div className="font-bold text-xl mb-2">{item.title}</div>
                   <p className="text-gray-700 text-base">
