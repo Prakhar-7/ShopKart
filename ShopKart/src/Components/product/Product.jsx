@@ -70,7 +70,6 @@ const Product = () => {
               >
                 <Link to={`/product/${item.id}`}>
                   {' '}
-                  {/* Use Link to navigate to product details page */}
                   <img
                     src={item.image}
                     alt={item.title}

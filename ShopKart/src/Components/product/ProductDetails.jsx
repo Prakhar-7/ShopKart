@@ -11,13 +11,13 @@ import { ToastContainer, toast } from 'react-toastify'
 
 const ProductDetails = () => {
   const dispatch = useDispatch()
-  const { productId } = useParams() // Get the productId from URL params
+  const { productId } = useParams() 
   const { items, idAdded } = useSelector((store) => store.cart)
 
   // Find the product with matching productId
   const product = items.find((item) => item.id == productId)
 
-  // Render loading message if product is not yet fetched
+//   Render loading message if product is not yet fetched
   if (!product) {
     return <div>Loading...</div>
   }
