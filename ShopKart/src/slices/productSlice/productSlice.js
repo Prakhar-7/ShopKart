@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+const url = 'https://fakestoreapi.com/products/category/'
 
 const initialState = {
   items: [],
@@ -17,6 +19,18 @@ export const getCartItems = createAsyncThunk('getCart', async () => {
   } catch (error) {
     console.error(error)
     throw error // Rethrow the error to be caught in the rejected case
+  }
+})
+
+export const getSearchItems = createAsyncThunk('searchCart', async (search) => {
+  try {
+    const response = await axios(`${url}${search}`)
+    const detail = response.data
+    console.log(detail)
+    return detail
+  } catch (error) {
+    console.error(error)
+    throw error
   }
 })
 
@@ -66,11 +80,18 @@ export const CartitemSlice = createSlice({
         state.status = 'succeeded'
         state.items = action.payload
         state.error = null // Reset error state on success
+        localStorage.setItem('product', JSON.stringify(state.items))
         console.log(action.payload)
       })
       .addCase(getCartItems.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message // Set error message on failure
+      })
+      .addCase(getSearchItems.fulfilled, (state, action) => {
+
+        state.status = "succeeded"
+        
+        
       })
   },
 })

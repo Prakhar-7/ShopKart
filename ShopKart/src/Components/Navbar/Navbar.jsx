@@ -1,13 +1,23 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { getSearchItems } from '../../slices/productSlice/productSlice'
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
+  const dispatch = useDispatch()
+  const [value,setValue]=useState('')
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-
+ const handleSearch=(e)=>{
+  setValue(e.target.value)
+ }
+ const handleSubmit=(e)=>{
+  e.preventDefault();
+  dispatch(getSearchItems(value))
+  setValue('')
+ }
   return (
     <nav className="bg-gray-800 py-4 px-6 flex items-center justify-between fixed w-full z-10">
       <div className="flex items-center">
@@ -82,11 +92,15 @@ function Navbar() {
       </ul>
 
       <div className="flex items-center">
+        <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Search"
+          value={value}
+          onChange={handleSearch}
           className="px-2 py-1 rounded bg-gray-700 text-white focus:outline-none mr-4"
         />
+        </form>
         <Link to="/Cart">
           <svg
             xmlns="http://www.w3.org/2000/svg"

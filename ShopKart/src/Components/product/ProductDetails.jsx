@@ -15,7 +15,9 @@ const ProductDetails = () => {
   const { items, idAdded } = useSelector((store) => store.cart)
 
   // Find the product with matching productId
-  const product = items.find((item) => item.id == productId)
+  const product = (
+    JSON.parse(localStorage.getItem('product')) || items
+  ).find((item) => item.id == productId)
 
 //   Render loading message if product is not yet fetched
   if (!product) {
